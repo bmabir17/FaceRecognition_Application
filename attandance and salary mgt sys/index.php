@@ -1,7 +1,7 @@
 <?php
 	include ("connect.php");
-	$link=connection();
-	$Attresult=mysql_query("SELECT `Hour` , `Date` , `E.Name` , `Office`.`E.ID` , `D Name` FROM `Office` JOIN `Employee` ON `Office`.`E.ID` = `Employee`.`E.ID` JOIN `Department` ON `Employee`.`D.ID` = `Department`.`D.ID` ORDER BY `Date` ",$link );
+	$link=Connection();
+	$AttResult=mysql_query("SELECT `O.ID`,`Hour` , `Date` , `E.Name` , `Office`.`E.ID` , `D Name` FROM `Office` JOIN `Employee` ON `Office`.`E.ID` = `Employee`.`E.ID` JOIN `Department` ON `Employee`.`D.ID` = `Department`.`D.ID` ORDER BY `Date` ",$link );
 ?>
 
 <html>
@@ -21,9 +21,11 @@
 		<?php 
 			if($AttResult!=FALSE){
 				while($row=mysql_fetch_array($AttResult)){
-					printf(<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td></tr>, 
-		           $row[Date], $row[E.ID], $row[D.ID]);
+					printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp</td><td>&nbsp;%s&nbsp; </td></tr>", 
+		           $row["Date"], $row["E.ID"], $row["E.Name"], $row["D Name"], $row["Hour"]);
 				}
+				 mysql_free_result($AttResult);
+				 mysql_close();
 			}
 			
 		?>
