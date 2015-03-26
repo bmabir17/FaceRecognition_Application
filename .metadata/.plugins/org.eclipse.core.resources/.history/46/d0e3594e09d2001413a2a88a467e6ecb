@@ -1,0 +1,24 @@
+package core_recognition;
+
+
+
+
+import static org.bytedeco.javacpp.opencv_core.*;
+import static org.bytedeco.javacpp.opencv_imgproc.*;
+import static org.bytedeco.javacpp.opencv_highgui.*;
+
+public class SampleCV {
+    public static void smooth(String filename) { 
+        IplImage image = cvLoadImage(filename);
+        if (image != null) {
+            cvSmooth(image, image);
+            cvSaveImage(filename+"45", image);
+            cvReleaseImage(image);
+            System.out.println("process is done");
+        }
+    }
+    public static void main(String[] args) {
+		// TODO Auto-generated method stub
+    	smooth("abir1.jpeg");
+	}
+}
