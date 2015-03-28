@@ -32,6 +32,11 @@
 	
 	
 	</table>
-   
+   <h1>Search for an Employee </h1>
+   <form action="EmployeeFind.php" method="post">
+	Employee Name: <input type="text" name="Name"><br>
+	Employee ID: <input type="text" name="ID"><br>
+	<input type="submit">
+	</form>
 </body>
 </html>

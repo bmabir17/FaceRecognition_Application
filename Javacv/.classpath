@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry exported="true" kind="lib" path="F:/software/java libraries/javacv-0.10-bin/javacv-bin/javacpp.jar"/>
+	<classpathentry exported="true" kind="lib" path="F:/software/java libraries/javacv-0.10-bin/javacv-bin/javacv.jar"/>
+	<classpathentry exported="true" kind="lib" path="F:/software/java libraries/javacv-0.10-bin/javacv-bin/opencv.jar"/>
+	<classpathentry exported="true" kind="lib" path="F:/software/java libraries/javacv-0.10-bin/javacv-bin/opencv-windows-x86_64.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

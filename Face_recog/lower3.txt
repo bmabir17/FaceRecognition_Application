@@ -1,0 +1,2 @@
+1 personA Cambridge_FaceDB/s1/1.pgm
+
