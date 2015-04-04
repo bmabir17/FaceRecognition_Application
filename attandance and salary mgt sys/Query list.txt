@@ -2,8 +2,8 @@
 
 UPDATE `Employee` SET `C.ID` = ( SELECT `C.ID`
 FROM `Card`
-WHERE `Card`.`E.ID` = '12201022' )
-WHERE `E.ID` = '12201022'
+WHERE `Card`.`E.ID` = '12201011' )
+WHERE `E.ID` = '12201011'
 
 
 2)To find the All Employee Data from the database using the Empoyee ID provided by the user
@@ -12,10 +12,17 @@ SELECT * FROM `Employee` JOIN `Card` ON `Employee`.`C.ID`=`Card`.`C.ID` JOIN `De
 
 
 
+3) To Add new Employee to the database
+
+INSERT INTO  `unisecbd_rfid`.`Employee` (`E.Name` ,`E.ID` ,`Address` ,`Hours Worked` ,`Salary` ,`C.ID` ,`D.ID`)
+VALUES ('Asif',  '12201011',  '79/1 Mohakhali',  '8.000',  '84.000', NULL ,  '1'
+);
+INSERT INTO `unisecbd_rfid`.`Card` (`C.ID`, `E.ID`, `Secret`) VALUES (NULL, '12201011', 'assassin32');
 
 
+4)To add log to the office table
 
-
+INSERT INTO `unisecbd_rfid`.`Office` (`Hour`, `O.ID`, `Date`, `E.ID`) VALUES ('1.500', NULL, '2015-04-04', '12201011');
 
 
 
