@@ -8,7 +8,8 @@ WHERE `E.ID` = '12201011'
 
 2)To find the All Employee Data from the database using the Empoyee ID provided by the user
 
-SELECT * FROM `Employee` JOIN `Card` ON `Employee`.`C.ID`=`Card`.`C.ID` JOIN `Department` ON `Employee`.`D.ID`=`Department`.`D.ID`  WHERE `Employee`.`E.ID`=$_POST["ID"]
+$sql = "SELECT `Employee`.`E.Name`, `Employee`.`E.ID`,`Employee`.`Salary`,`Department`.`D Name` ,`Employee`.`Hours Worked` FROM `Employee`,`Card`,`Department` WHERE `Employee`.`C.ID`=`Card`.`C.ID` AND `Employee`.`D.ID`=`Department`.`D.ID` AND `Employee`.`E.ID`=$IDNum"
+    . "";
 
 
 
@@ -26,35 +27,29 @@ INSERT INTO `unisecbd_rfid`.`Office` (`Hour`, `O.ID`, `Date`, `E.ID`) VALUES ('1
 
 
 
-while($row=mysql_fetch_array($AttResult)){
-					printf("<tr>
-					    <th>&nbsp;Name:&nbsp;</th>
-					    <td>&nbsp;%s&nbsp;</td>
-					  </tr>
-					  <tr>
-					    <th>Employee ID:</th>
-					    <td>&nbsp;%s&nbsp;</td>
-					  </tr>
-					  <tr>
-					    <th>&nbsp;Department:&nbsp;</th>
-					    <td>&nbsp;%s&nbsp;</td>
-					  </tr><tr>
-					    <th>&nbsp;Address:&nbsp;</th>
-					    <td>&nbsp;%s&nbsp;</td>
-					  </tr><tr>
-					    <th>&nbsp;Card No:&nbsp;</th>
-					    <td>&nbsp;%s&nbsp;</td>
-					  </tr><tr>
-					    <th>&nbsp;Salary:&nbsp;</th>
-					    <td>&nbsp;%s&nbsp;</td>
-					  </tr><tr>
-					    <th>&nbsp;Total Hours worked:&nbsp;</th>
-					    <td>&nbsp;%s&nbsp;</td>
-					  </tr><tr>
-					    <th>&nbsp;Card Secret:&nbsp;</th>
-					    <td>&nbsp;%s&nbsp;</td>
-					  </tr>", 
-		            $row["E.Name"], $row["E.ID"], $row["D Name"],$row["Address"],$row["C.ID"],$row["Salary"], $row["Hour"],$row["Secret"]);
-				}
-				 mysql_free_result($AttResult);
-				 mysql_close();
+For trigger SQL
+**sum of office hours
+SELECT SUM(`Office`.`Hour`) FROM `Office` where `Office`.`E.ID`='12201022';
+
+** get the sum of hours for the last office entry
+SELECT SUM(`Office`.`Hour`) FROM `Office` where `Office`.`E.ID`=(SELECT `Office`.`E.ID` FROM `Office`
+ORDER BY `O.ID` DESC
+LIMIT 1);
+
+**update the Employee Table of 'Hours Worked' by calculating from 'Hours' of Office Table
+UPDATE `Employee` SET `Hours Worked`=(SELECT SUM(`Office`.`Hour`) FROM `Office` where `Office`.`E.ID`=(SELECT `Office`.`E.ID` FROM `Office`
+ORDER BY `O.ID` DESC
+LIMIT 1)) WHERE `Employee`.`E.ID`=(SELECT `Office`.`E.ID` FROM `Office`
+ORDER BY `O.ID` DESC
+LIMIT 1);
+
+**update the Employee Table of `Hours Worked` and `Salaries by calculating from 'Hours' of Office Table`
+UPDATE `Employee` SET `Hours Worked`=(SELECT SUM(`Office`.`Hour`) FROM `Office` where `Office`.`E.ID`=(SELECT `Office`.`E.ID` FROM `Office`
+ORDER BY `O.ID` DESC
+LIMIT 1)),`Salary`=(SELECT SUM(`Office`.`Hour`) FROM `Office` where `Office`.`E.ID`=(SELECT `Office`.`E.ID` FROM `Office`
+ORDER BY `O.ID` DESC
+LIMIT 1))*500 WHERE `Employee`.`E.ID`=(SELECT `Office`.`E.ID` FROM `Office`
+ORDER BY `O.ID` DESC
+LIMIT 1);
+
+
